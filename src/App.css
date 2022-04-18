@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.icon-Dark {
+  color: rgb(75, 75, 75);
+}
+
+.icon-Light {
+  color: white;
+}
+
+.noSelect {
+  user-select: none;
+}
