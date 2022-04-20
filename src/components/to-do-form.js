@@ -1,14 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faQuoteLeft, faQuoteRight } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faQuoteLeft, faQuoteRight, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { addTodo, editTodo } from "../store/store";
 
 const ToDoForm = () => {
 
     const quote = "Motivational quote!";
 
+    const todo = useSelector((state) => state.todo);
+    const dispatch = useDispatch();
+
+    const [values, setValues] = useState({
+        codigo: 0,
+        texto: '',
+        estado: 'pendiente'
+    });
+
+    useEffect(() => {
+        setValues({
+            codigo: todo.codigo || 0,
+            texto: todo.texto || '',
+            estado: todo.estado || 'pendiente'
+        });
+    }, [todo]);
+
+    const onChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        setValues((v) => ({
+            ...v,
+            [name]: value
+        }));
+    }
+
     const onSubmit = (event) => {
         event.preventDefault();
-        console.log("Submit!");
+        const payload = values;
+        if(values.codigo > 0){
+            dispatch(editTodo(payload));
+        } else {
+            dispatch(addTodo(payload));
+        }
     }
 
     return (
@@ -31,9 +65,13 @@ const ToDoForm = () => {
                                     <input 
                                         type="text" 
                                         className="form-control" 
+                                        name="texto"
+                                        id="texto"
+                                        value={values.texto}
+                                        onChange={onChange}
                                         placeholder="Describe tu tarea..." 
                                         aria-label="Describe tu tarea" />
-                                    <button className="btn btn-primary" type="submit">Agregar</button>
+                                    <button className="btn btn-primary" type="submit"><FontAwesomeIcon icon={faPlus} className="icon-Light" /></button>
                                 </div>
                             </form>
                         </div>
