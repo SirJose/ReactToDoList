@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faQuoteLeft, faQuoteRight, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPencil, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { addTodo, editTodo } from "../store/store";
 
 const ToDoForm = () => {
 
-    const quote = "Motivational quote!";
+    // const quote = "Motivational quote!";
 
     const todo = useSelector((state) => state.todo);
     const dispatch = useDispatch();
@@ -38,10 +38,12 @@ const ToDoForm = () => {
     const onSubmit = (event) => {
         event.preventDefault();
         const payload = values;
-        if(values.codigo > 0){
-            dispatch(editTodo(payload));
-        } else {
-            dispatch(addTodo(payload));
+        if(values.texto){
+            if(values.codigo > 0){
+                dispatch(editTodo(payload));
+            } else {
+                dispatch(addTodo(payload));
+            }
         }
     }
 
@@ -76,11 +78,11 @@ const ToDoForm = () => {
                             </form>
                         </div>
                         
-                        <div className="card-footer text-black-50 text-center fst-italic noSelect">
+                        {/* <div className="card-footer text-black-50 text-center fst-italic noSelect">
                             <FontAwesomeIcon icon={faQuoteLeft} />
                             &nbsp;{quote}&nbsp;
                             <FontAwesomeIcon icon={faQuoteRight} />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
