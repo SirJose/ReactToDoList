@@ -6,10 +6,20 @@ import { addTodo, editTodo } from "../store/store";
 
 const ToDoForm = () => {
 
-    // const quote = "Motivational quote!";
 
     const todo = useSelector((state) => state.todo);
+    const todos = useSelector((state) => state.todoList);
     const dispatch = useDispatch();
+
+    const[completado, setCompletado] = useState(
+        (todos.length) ? parseInt(todos.filter(item => item.estado === "completado").length * 100 / todos.length) : 0
+    );
+
+    useEffect(() => {
+        setCompletado(
+            (todos.length) ? parseInt(todos.filter(item => item.estado === "completado").length * 100 / todos.length) : 0
+        );
+    }, [todos]);
 
     const [values, setValues] = useState({
         codigo: 0,
@@ -78,11 +88,11 @@ const ToDoForm = () => {
                             </form>
                         </div>
                         
-                        {/* <div className="card-footer text-black-50 text-center fst-italic noSelect">
-                            <FontAwesomeIcon icon={faQuoteLeft} />
-                            &nbsp;{quote}&nbsp;
-                            <FontAwesomeIcon icon={faQuoteRight} />
-                        </div> */}
+                        <div className="card-footer text-black-50 text-center fst-italic noSelect">
+                            <div className="progress">
+                                <div className="progress-bar" role="progressbar" style={{width: completado+"%"}} aria-valuenow={completado} aria-valuemin="0" aria-valuemax="100">{completado}%</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
