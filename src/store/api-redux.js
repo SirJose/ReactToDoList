@@ -1,10 +1,4 @@
 import todosApi from "./todosApi";
-// import { push } from "connected-react-router";
-
-// const asignarProductos = (payload) => ({
-//     type: "asignar-productos",
-//     payload
-// });
 
 const todosApiMiddleware = ({dispatch}) => (next) => async (action) => {
 
@@ -16,7 +10,6 @@ const todosApiMiddleware = ({dispatch}) => (next) => async (action) => {
                 type: "update-todo-list",
                 payload: todos
             });
-            // dispatch(asignarProductos(todos));
             break;
         }
         case "add-todo":
@@ -31,7 +24,6 @@ const todosApiMiddleware = ({dispatch}) => (next) => async (action) => {
                 type: "select-todo",
                 payload: {}
             });
-            // dispatch(push("/"));
 
             break;
         }
@@ -48,7 +40,6 @@ const todosApiMiddleware = ({dispatch}) => (next) => async (action) => {
                 type: "select-todo",
                 payload: {}
             });
-            // dispatch(push("/"));
 
             break;
         }
